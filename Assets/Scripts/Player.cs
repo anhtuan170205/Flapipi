@@ -34,14 +34,14 @@ public class Player : MonoBehaviour
     private void GameManager_OnGameStarted()
     {
         isAlive = true;
-        rigidBody2D.velocity = Vector2.zero;
+        rigidBody2D.linearVelocity = Vector2.zero;
         rigidBody2D.gravityScale = 4;
     }
 
     private void GameManager_OnGameOver()
     {
         isAlive = false;
-        rigidBody2D.velocity = Vector2.zero;
+        rigidBody2D.linearVelocity = Vector2.zero;
     }
 
     public void Jump()
@@ -52,16 +52,16 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
-            rigidBody2D.velocity = Vector2.up * jumpForce;
+            rigidBody2D.linearVelocity = Vector2.up * jumpForce;
             transform.rotation = Quaternion.Euler(0, 0, 30f); 
         }
     }
 
     private void Fall()
     {
-        if (rigidBody2D.velocity.y < 0) 
+        if (rigidBody2D.linearVelocity.y < 0) 
         {
-            float fallSpeed = Mathf.Clamp(-rigidBody2D.velocity.y, 0, 10);
+            float fallSpeed = Mathf.Clamp(-rigidBody2D.linearVelocity.y, 0, 10);
             float targetAngle = Mathf.Lerp(0, -90f, fallSpeed / 15f);
             transform.rotation = Quaternion.Euler(0, 0, targetAngle);
         }
